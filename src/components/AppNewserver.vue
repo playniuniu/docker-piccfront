@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="content-container">
         <header>
             <h1 class="title">新建虚机</h1>
         </header>

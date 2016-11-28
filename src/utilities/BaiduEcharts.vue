@@ -32,9 +32,8 @@
 
 <style>
     #chart {
-        height: 500px;
+        height: 550px;
         width: 100%;
-        margin: 15px auto;
     }
 </style>
 

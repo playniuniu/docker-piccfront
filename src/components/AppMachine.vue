@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="content-container">
         <header>
             <h1 class="title">虚机资源</h1>
             <div class="btn-right">

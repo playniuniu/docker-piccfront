@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="content-container">
         <div class="task-step">
             <el-steps :space="250" :active="active">
                 <el-step title="新建" icon="date"></el-step>

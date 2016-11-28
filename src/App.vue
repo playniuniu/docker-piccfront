@@ -3,7 +3,7 @@
         <main-layouts>
             <app-menu slot="menu"></app-menu>    
             <app-sidebar slot="sidebar"></app-sidebar>
-            <router-view slot="content" class="content-container"></router-view>
+            <router-view slot="content"></router-view>
         </main-layouts>
     </div>
 </template>
@@ -32,7 +32,7 @@
     }
 
     .content-container {
-        padding: 10px 50px 0 30px;
+        padding: 10px 50px 0 40px;
     }
 
     .content-container .title {
@@ -41,6 +41,6 @@
         line-height: 56px;
         font-size: 22px;
         padding: 0;
-        margin: 0 0 5px;
+        margin: 0 0 10px;
     }
 </style>

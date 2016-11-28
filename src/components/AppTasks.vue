@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="content-container">
         <header>
             <h1 class="title">历史任务</h1>
             <div class="btn-right">
