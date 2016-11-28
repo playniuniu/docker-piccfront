@@ -1,27 +1,28 @@
 <template>
     <section class="content-container">
-        <div class="task-step">
-            <el-steps :space="250" :active="active">
-                <el-step title="新建" icon="date"></el-step>
-                <el-step title="设置" icon="setting"></el-step>
-                <el-step title="部署" icon="caret-right"></el-step>
-            </el-steps>
-        </div>
+        <el-row class="task-step">
+            <el-col :span="18">
+                <el-steps :space="250" :active="active">
+                    <el-step title="新建" icon="date"></el-step>
+                    <el-step title="设置" icon="setting"></el-step>
+                    <el-step title="部署" icon="caret-right"></el-step>
+                </el-steps>
+            </el-col>
+            <el-col :span="6">
+                <div class='task-btn-row'>
+                    <el-button :disabled="active === 1"  @click="prevStep">上一步</el-button>
+                    <el-button :disabled="active === 3" @click="nextStep" type="primary" >下一步</el-button>
+                </div>
+            </el-col>
+        </el-row>
 
         <div class="task-form">
             <el-form :model="taskdata" label-position="left" label-width="80px">
                 <div v-if="active === 1">
-                    <el-form-item label="服务器 IP">
-                        <el-input v-model="taskdata.ip"></el-input>
-                    </el-form-item>
-                    <el-form-item label="SSH 端口">
-                        <el-input v-model="taskdata.port"></el-input>
-                    </el-form-item>
-                    <el-form-item label="用户名">
-                        <el-input v-model="taskdata.username"></el-input>
-                    </el-form-item>
-                    <el-form-item label="密码">
-                        <el-input v-model="taskdata.password"></el-input>
+                    <el-form-item label="服务器">
+                        <el-select v-model="taskdata.ip" placeholder="请选择服务器">
+                            <el-option label="10.0.0.1" value="10.0.0.1"></el-option>
+                        </el-select>
                     </el-form-item>
                     <el-form-item label="任务类型">
                         <el-select v-model="taskdata.type" placeholder="请选择任务类型">
@@ -102,21 +103,22 @@
                 </div>
 
                 <div v-if="active === 3">
-                    <el-form-item label="预约时间">
-                        <el-switch on-text="" off-text="" v-model="taskdata.order"></el-switch>
-                    </el-form-item>
-
-                    <el-form-item label="部署时间" v-if="taskdata.order">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="taskdata.ordertime"></el-date-picker>
-                    </el-form-item>
+                    
+                    <el-form :model="taskdata" label-width="80px">
+                        <el-form-item label="部署目标">
+                            <el-input disabled v-model="taskdata.ip"></el-input>
+                        </el-form-item>
+                        <el-form-item label="部署类型">
+                            <el-input disabled v-model="taskdata.type"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    
+                    <el-button type="success" size="large">立即部署</el-button>
                 </div>
             </el-form>
         </div>
 
-        <div class='task-btn-row'>
-            <el-button type="primary" @click="nextStep">下一步</el-button>
-            <el-button>取消</el-button>
-        </div>
+        
 
     </section>
 </template>
@@ -133,7 +135,11 @@
     }
 
     .task-btn-row {
-        margin-bottom: 60px;
+        float: right;
+    }
+
+    .btn-next {
+        margin-left: 15px;
     }
 </style>
 
@@ -163,10 +169,14 @@
             }
         },
         methods: {
+            prevStep() {
+                this.active -= 1;
+            },
+
             nextStep() {
                 this.active += 1;
-                if (this.active > 3) this.active = 0;
             },
+
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },

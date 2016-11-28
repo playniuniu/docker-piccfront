@@ -5,9 +5,6 @@
             <router-link to="machine">
                 <el-menu-item index="1-1">虚机资源</el-menu-item>
             </router-link>
-            <router-link to="cluster">
-                <el-menu-item index="1-2">集群资源</el-menu-item>
-            </router-link>
         </el-submenu>
         <el-submenu index="2">
             <template slot="title"><i class="el-icon-star-off"></i>任务</template>

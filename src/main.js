@@ -12,7 +12,7 @@ import Element from 'element-ui'
 // router here
 import App from './App.vue'
 import AppMachine from './components/AppMachine.vue'
-import AppCluster from './components/AppCluster.vue'
+import AppMap from './components/AppMap.vue'
 import AppNewtask from './components/AppNewtask.vue'
 import AppNewserver from './components/AppNewserver.vue'
 import AppTasks from './components/AppTasks.vue'
@@ -22,9 +22,8 @@ Vue.use(Element)
 
 // router settings
 const routes = [
-    { path: '/', component: AppCluster },
+    { path: '/', component: AppMap },
     { path: '/machine', component: AppMachine },
-    { path: '/cluster', component: AppCluster },
     { path: '/newtask', component: AppNewtask },
     { path: '/newserver', component: AppNewserver },
     { path: '/tasks', component: AppTasks }
