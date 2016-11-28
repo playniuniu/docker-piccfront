@@ -1,17 +1,24 @@
 <template>
     <section class="chart-container">
+        <h1 class="title">PICC 数据中心概览</h1>
         <baidu-echarts :mapdata="mapdata"></baidu-echarts>
     </section>
     
 </template>
 
 <style>
-    .app-container {
-        background-color: #00497F;
+    .chart-container {
+        padding: 10px 0 40px 40px;
     }
 
-    .chart-container {
-        padding: 40px 30px 0;
+    .chart-container .title {
+        display: block;
+        color: #324057;
+        height: 56px;
+        line-height: 56px;
+        font-size: 22px;
+        padding: 0;
+        margin: 0;
     }
 </style>
 

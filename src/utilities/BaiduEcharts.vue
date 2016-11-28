@@ -5,7 +5,7 @@
 <script>
     import echarts from 'echarts'
     import axios from 'axios'
-    import ChinaCityGeo from './ChinaCityGeo.js'
+    import geoCoordMap from './geoCoordMap.js'
 
     export default {
         props: [ 'mapdata' ],
@@ -29,7 +29,7 @@
             convertData(conv_data) {
                 let res = [];
                 for (let i=0; i < conv_data.length; i++) {
-                    let geoCoord = ChinaCityGeo[conv_data[i].name];
+                    let geoCoord = geoCoordMap[conv_data[i].name];
                     if (geoCoord) {
                         res.push({
                             name: conv_data[i].name,
@@ -41,15 +41,6 @@
             },
             initOption(option_data) {
                 let option = {
-                    backgroundColor: '#00497F',
-                    title: {
-                        text: 'PICC 虚机概况',
-                        x:'center',
-                        textStyle: {
-                            fontSize: 24,
-                            color: '#fff'
-                        }
-                    },
                     tooltip: {
                         trigger: 'item',
                         formatter: (params) => {
@@ -62,7 +53,7 @@
                         x:'right',
                         data:['PICC 虚机概况'],
                         textStyle: {
-                            color: '#fff'
+                            color: '#8492A6'
                         }
                     },
                     visualMap: {
@@ -73,7 +64,7 @@
                             color: ['#50a3ba', '#eac736', '#d94e5d']
                         },
                         textStyle: {
-                            color: '#fff'
+                            color: '#8492A6'
                         }
                     },
                     geo: {
@@ -85,11 +76,11 @@
                         },
                         itemStyle: {
                             normal: {
-                                areaColor: '#fff',
+                                areaColor: '#C0CCDA',
                                 borderColor: '#fff'
                             },
                             emphasis: {
-                                areaColor: '#fff'
+                                areaColor: '#99A9BF'
                             }
                         }
                     },
@@ -126,7 +117,7 @@
 <style>
     #chart {
         height: 550px;
-        width: 100%;
+        width: 700px;
     }
 </style>
 
