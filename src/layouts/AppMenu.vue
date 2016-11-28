@@ -16,9 +16,9 @@
 
     .header-title {
         display: inline-block;
-        font-size: 24px;
+        font-size: 26px;
         font-weight: 200;
-        line-height: 60px;
+        line-height: 80px;
         margin: 0;
     }
 
@@ -31,7 +31,7 @@
         float: right;
         font-size: 16px;
         color: #fff;
-        line-height: 60px;
+        line-height: 80px;
         margin: 0;
         padding: 0;
     }

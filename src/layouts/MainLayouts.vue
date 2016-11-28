@@ -24,7 +24,7 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 60px;
+        height: 80px;
         padding: 0 50px;
         background-color: #20A0FF;
         transition: all 0.5s ease;
@@ -34,14 +34,14 @@
     .app-sidebar {
         position:fixed;
         width: 260px; 
-        top: 60px;
+        top: 80px;
         bottom: 0;
     }
 
     .app-container {
         background: #F9FAFC;
         padding-left: 260px;
-        padding-top: 60px;
-        min-height: calc(100% - 60px);
+        padding-top: 80px;
+        min-height: calc(100% - 80px);
     }
 </style>
