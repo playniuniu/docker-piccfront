@@ -9,16 +9,16 @@
             </div>
         </header>
 
-        <el-table :data="tableData" border>
-            <el-table-column prop="name" label="名称" width="180"></el-table-column>
-            <el-table-column prop="type" label="当前状态" width="100" align="center" inline-template>
-                <el-tag :type="row.type === '成功' ? 'success' : 'danger'" close-transition>{{row.type}}</el-tag>
+        <el-table :data="taskData" border class="task-table">
+            <el-table-column prop="uuid" label="UUID" width="180"></el-table-column>
+            <el-table-column prop="state" label="状态" width="110" align="center" inline-template>
+                <el-tag :type="row.state === 'SUCCESS' ? 'success' : 'danger'" close-transition>{{row.state}}</el-tag>
             </el-table-column>
-            <el-table-column prop="ip" label="任务目标" width="160" align="center"></el-table-column>
-            <el-table-column prop="desc" label="备注"></el-table-column>
+            <el-table-column prop="args" label="命令" align="center"></el-table-column>
+            <el-table-column prop="result" label="结果"></el-table-column>
             <el-table-column :context="_self" inline-template label="操作" width="100" align="center">
                 <div>
-                    <el-button size="small" :disabled="true" type="danger" @click="handleDelete($index, row)">取消</el-button>
+                    <el-button size="small" :disabled="true" type="success" @click="taskDetail(row)">详情</el-button>
                 </div>
             </el-table-column>
         </el-table>
@@ -39,49 +39,39 @@
         text-decoration: none;
         color: #fff;
     }
+
+    .task-table {
+        margin-bottom: 60px;
+    }
 </style>
 
 
 <script>
+    import ajax from '../utilities/ajax.js'
+
     export default {
         data() {
             return {
-                tableData: [
-                {
-                    name: '部署主控',
-                    ip: '10.10.17.240',
-                    type: '成功',
-                    area: '南中心',
-                    desc: 'fj3500 car3g'
-                },
-                {
-                    name: '部署受管',
-                    ip: '10.10.17.241',
-                    type: '成功',
-                    area: '南中心',
-                    desc: 'fj3500 car3g'
-                },
-                {
-                    name: '部署 WAR 包',
-                    ip: '10.10.17.242',
-                    type: '成功',
-                    area: '灾备中心',
-                    desc: 'fj3500 car3g'
-                }],
+                taskData: [],
+                task_url: '/tasks',
             }
+        },
+        mounted() {
+            this.fetchData(this.task_url);
         },
         methods: {
             newTask() {
                 this.$router.push('newtask');
             },
-            handleEdit(index, row) {
-                console.log(index, row);
-            },
-            handleDelete(index, row) {
-                console.log(index, row);
-            },
-            filterTag(value, row) {
-                return row.type === value;
+            fetchData(url) {
+                ajax.get(url).then( (response) => {
+                    let tasks_list = response.data;
+                    for( let key in tasks_list) {
+                        let key_dict = { 'uuid': key }
+                        let task_dict = Object.assign(key_dict, tasks_list[key]);
+                        this.taskData.push(task_dict)
+                    }
+                });
             },
         }
     }
