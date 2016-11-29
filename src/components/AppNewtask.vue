@@ -72,7 +72,7 @@
                     <el-form-item label="业务编码">
                         <el-input v-model="task2.picc_org_code" placeholder="3500"></el-input>
                     </el-form-item>
-                    <el-form-item label="主控IP">
+                    <el-form-item label="主控 IP">
                         <el-input v-model="task2.admin_ip" placeholder="0.0.0.0"></el-input>
                     </el-form-item>
                      <el-form-item label="主控端口">
@@ -88,6 +88,9 @@
                 
                 <!-- step 2 -->
                 <div v-if="active === 2 && task_type === 'Deploy'">
+                    <el-form-item label="业务省份">
+                        <el-input v-model="task3.picc_user" placeholder="fj3500"></el-input>
+                    </el-form-item>
                     <el-form-item label="主控 IP">
                         <el-input v-model="task3.admin_ip" placeholder="0.0.0.0"></el-input>
                     </el-form-item>
@@ -104,14 +107,13 @@
                         <el-input v-model="task3.weblogic_passwd" placeholder="Weblogic 密码"></el-input>
                     </el-form-item>
                     <el-form-item label="上传文件">
-                        <el-upload
-                            action="upload_url"
-                            type="drag"
+                        <el-upload type="drag" 
+                            :action="upload_url"
                             :multiple="false"
-                            :on-remove="handleRemove"
-                            :on-success="handleSuccess"
-                            :on-error="handleError"
-                            >
+                            :on-remove="fileRemove"
+                            :on-success="fileSuccess"
+                            :on-error="fileError"
+                        >
                             <i class="el-icon-upload"></i>
                             <div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
                         </el-upload>
@@ -161,7 +163,7 @@
                 select_ip_group: null, // for ansible limit ip
                 inventory_url: "/inventory",
                 task_url: "/newtask",
-                upload_url: "/upload",
+                upload_url: "http://127.0.0.1:8002/upload",
                 target_ip: null,
                 task1: {
                     picc_user: null,
@@ -179,12 +181,14 @@
                     weblogic_passwd: null,
                 },
                 task3: {
+                    picc_user: null,
                     admin_ip: null,
                     admin_port: null,
                     weblogic_user: null,
                     weblogic_passwd: null,
-                    deploy_file: null,
                     deploy_target: null,
+                    deploy_name: null,
+                    deploy_file: null
                 },
             }
         },
@@ -207,18 +211,29 @@
             },
 
             updateTaskType() {
+
                 this.target_ip = "";
 
                 // update select_group for select ip
-                if(this.task_type === "ManagedServer") {
+                if (this.task_type === "ManagedServer") {
                     this.select_ip_group = "ManagedServer";
                 }
                 else {
                     this.select_ip_group = "AdminServer";
                 }
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
+
+            fileRemove(file, fileList) {
+
+            },
+
+            fileSuccess(file, fileList) {
+                this.task3.deploy_file = fileList.name;
+                this.task3.deploy_name = fileList.name.split('.').pop();
+            },
+
+            fileError(file, fileList) {
+                this.$message.error("上传文件失败");
             },
 
             fetchData(url) {
@@ -247,7 +262,7 @@
 
                     case "Deploy":
                         post_args.playbook = 'deploy.yml';
-                        post_args.extra_vars = [ this.task2 ];
+                        post_args.extra_vars = [ this.task3 ];
                         break;
 
                     default:
