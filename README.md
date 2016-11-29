@@ -1,8 +1,20 @@
-# piccadmin
+# PICCFront
 
-> picc ansible admin pannel
 
-## Build Setup
+### Run
+
+```bash
+docker run -d -p 8888:80 --name piccfront playniuniu/piccfront
+``` 
+
+### Config
+
+Need set **piccbackend** host in your host file
+
+
+### Run from source
+
+Go to web folder and run:
 
 ``` bash
 # install dependencies
@@ -15,4 +27,4 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
