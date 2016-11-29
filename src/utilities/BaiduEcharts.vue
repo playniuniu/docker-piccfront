@@ -76,11 +76,11 @@
                         },
                         itemStyle: {
                             normal: {
-                                areaColor: '#C0CCDA',
+                                areaColor: '#D3DCE6',
                                 borderColor: '#fff'
                             },
                             emphasis: {
-                                areaColor: '#99A9BF'
+                                areaColor: '#C0CCDA'
                             }
                         }
                     },
