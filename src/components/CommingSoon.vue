@@ -6,10 +6,9 @@
 
 <style>
     .img-container img {
-        width: 253px;
+        width: 750px;
         height: auto;
-        padding-left: 40px;
-        padding-top: 40px;
+        margine: 0 auto;
     }
 </style>
 
