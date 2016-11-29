@@ -9,34 +9,23 @@
                 </el-button>
             </div>
         </header>
-        
-        <el-form label-position="left" label-width="90px" class="select-type">
-            <el-form-item label="虚拟化类型" >
-                <el-radio-group v-model="vmtype" >
-                    <el-radio label="全部"></el-radio>
-                    <el-radio label="CAS"></el-radio>
-                    <el-radio label="VMWare"></el-radio>
-                    <el-radio label="Citrix"></el-radio>
-                </el-radio-group>
-            </el-form-item>
-        </el-form>
 
-        <el-table :data="tableData" border>
+        <el-table :data="vmdata" border>
             <el-table-column prop="ip" label="IP 地址" width="180"></el-table-column>
             <el-table-column
-                prop="type"
+                prop="group"
                 label="类型"
-                width="90"
+                width="140"
                 align="center"
                 inline-template>
-                <el-tag :type="row.type === '主控' ? 'success' : 'warning'" close-transition>{{row.type}}</el-tag>
+                <el-tag :type="row.group === 'AdminServer' ? 'success' : 'warning'" close-transition>{{row.group}}</el-tag>
             </el-table-column>
             <el-table-column prop="area" label="所在区域" sortable width="160" align="center"></el-table-column>
             <el-table-column prop="desc" label="机器说明"></el-table-column>
             <el-table-column :context="_self" inline-template label="操作" width="140" align="center">
                 <div>
-                    <el-button size="small" @click="handleEdit($index, row)">编辑</el-button>
-                    <el-button size="small" type="danger" @click="handleDelete($index, row)">删除</el-button>
+                    <el-button size="small" disabled @click="editVM($index, row)">编辑</el-button>
+                    <el-button size="small" type="danger" @click="deleteVM($index, row)">删除</el-button>
                 </div>
             </el-table-column>
         </el-table>
@@ -70,46 +59,40 @@
 
 
 <script>
+    import ajax from '../utilities/ajax.js'
+
     export default {
         data() {
             return {
-                vmtype: '全部',
-                tableData: [
-                {
-                    ip: '10.10.17.240',
-                    type: '主控',
-                    area: '南中心',
-                    desc: 'fj3500 car3g'
-                },
-                {
-                    ip: '10.10.17.241',
-                    type: '受管',
-                    area: '南中心',
-                    desc: 'fj3500 car3g'
-                },
-                {
-                    ip: '10.10.17.242',
-                    type: '主控',
-                    area: '灾备中心',
-                    desc: 'fj3500 car3g'
-                },
-                {
-                    ip: '10.10.17.243',
-                    type: '受管',
-                    area: '灾备中心',
-                    desc: 'fj3500 car3g'
-                }],
+                vmdata: [],
+                ajax_url: '/inventory'
             }
         },
+        mounted() {
+            this.fetchData(this.ajax_url);
+        },
         methods: {
-            handleEdit(index, row) {
+            editVM(index, row) {
                 console.log(index, row);
             },
-            handleDelete(index, row) {
-                console.log(index, row);
+            deleteVM(index, row) {
+                this.vmdata.splice(index, 1);
+                this.setData(this.ajax_url, this.vmdata);
             },
-            filterTag(value, row) {
-                return row.type === value;
+            fetchData(url) {
+                ajax.get(url).then( (response) => {
+                    this.vmdata = response.data;
+                });
+            },
+            setData(url, data) {
+                ajax.post(url, data).then( (response) => {
+                    if (response.data.status === "ok") {
+                        this.$message.success("成功删除");
+                    }
+                    else {
+                        this.$message.error("成功失败");
+                    }
+                });
             },
         }
     }
