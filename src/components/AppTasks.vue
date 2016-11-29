@@ -3,9 +3,8 @@
         <header>
             <h1 class="title">历史任务</h1>
             <div class="btn-right">
-                <el-button type="success">
-                    <i class="fa fa-calendar-check-o"></i>
-                    <router-link to="newtask">新建任务</router-link>
+                <el-button type="success" @click="newTask">
+                    <i class="fa fa-calendar-check-o"></i>新建任务
                 </el-button>
             </div>
         </header>
@@ -72,6 +71,9 @@
             }
         },
         methods: {
+            newTask() {
+                this.$router.push('newtask');
+            },
             handleEdit(index, row) {
                 console.log(index, row);
             },

@@ -3,9 +3,8 @@
         <header>
             <h1 class="title">虚机资源</h1>
             <div class="btn-right">
-                <el-button type="success">
-                    <i class="fa fa-server"></i>
-                    <router-link to="newserver">新建虚机</router-link>
+                <el-button type="success" @click="createVM">
+                    <i class="fa fa-server"></i>新建虚机
                 </el-button>
             </div>
         </header>
@@ -72,6 +71,9 @@
             this.fetchData(this.ajax_url);
         },
         methods: {
+            createVM() {
+                this.$router.push('newserver')
+            },
             editVM(index, row) {
                 console.log(index, row);
             },
@@ -87,10 +89,10 @@
             setData(url, data) {
                 ajax.post(url, data).then( (response) => {
                     if (response.data.status === "ok") {
-                        this.$message.success("成功删除");
+                        this.$message.success("删除成功");
                     }
                     else {
-                        this.$message.error("成功失败");
+                        this.$message.error("删除失败");
                     }
                 });
             },

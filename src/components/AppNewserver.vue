@@ -124,7 +124,7 @@
                     else {
                         this.$message.error('创建失败');
                     }
-                    setTimeout( this.$router.push('vm'), 1500);
+                    setInterval( this.$router.push('vm'), 500);
                 });
             },
         }
