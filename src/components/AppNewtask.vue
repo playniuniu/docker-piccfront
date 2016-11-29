@@ -48,7 +48,7 @@
                 <!-- step 2 -->
                 <div v-if="active === 2 && task_type === 'AdminServer'">
                     <el-form-item label="业务省份">
-                        <el-input v-model="task1.picc_user_prefix" placeholder="fj"></el-input>
+                        <el-input v-model="task1.picc_user" placeholder="fj3500"></el-input>
                     </el-form-item>
                     <el-form-item label="业务名称">
                         <el-input v-model="task1.picc_op_name" placeholder="car3g"></el-input>
@@ -64,25 +64,25 @@
                 <!-- step 2 -->
                 <div v-if="active === 2 && task_type === 'ManagedServer'">
                     <el-form-item label="业务省份">
-                        <el-input v-model="task2.picc_user_prefix" placeholder="fj"></el-input>
+                        <el-input v-model="task2.picc_user" placeholder="fj3500"></el-input>
                     </el-form-item>
                     <el-form-item label="业务名称">
-                        <el-input v-model="ansible.picc_op_name" placeholder="car3g"></el-input>
+                        <el-input v-model="task2.picc_op_name" placeholder="car3g"></el-input>
                     </el-form-item>
                     <el-form-item label="业务编码">
-                        <el-input v-model="ansible.picc_org_code" placeholder="3500"></el-input>
+                        <el-input v-model="task2.picc_org_code" placeholder="3500"></el-input>
                     </el-form-item>
                     <el-form-item label="主控IP">
-                        <el-input v-model="ansible.admin_ip" placeholder="0.0.0.0"></el-input>
+                        <el-input v-model="task2.admin_ip" placeholder="0.0.0.0"></el-input>
                     </el-form-item>
                      <el-form-item label="主控端口">
-                        <el-input v-model="ansible.admin_port" placeholder="7001"></el-input>
+                        <el-input v-model="task2.admin_port" placeholder="7001"></el-input>
                     </el-form-item>
                     <el-form-item label="用户名">
-                        <el-input v-model="ansible.weblogic_user" placeholder="Weblogic 用户名"></el-input>
+                        <el-input v-model="task2.weblogic_user" placeholder="Weblogic 用户名"></el-input>
                     </el-form-item>
                     <el-form-item label="密码">
-                        <el-input v-model="ansible.weblogic_passwd" placeholder="Weblogic 密码"></el-input>
+                        <el-input v-model="task2.weblogic_passwd" placeholder="Weblogic 密码"></el-input>
                     </el-form-item>
                 </div>
                 
@@ -164,13 +164,13 @@
                 upload_url: "/upload",
                 target_ip: null,
                 task1: {
-                    picc_user_prefix: null,
+                    picc_user: null,
                     picc_op_name: null,
                     picc_org_code: null,
                     admin_port: null,
                 },
                 task2: {
-                    picc_user_prefix: null,
+                    picc_user: null,
                     picc_op_name: null,
                     picc_org_code: null,
                     admin_ip: null,
@@ -228,36 +228,31 @@
             },
 
             runTask() {
+                let post_args = {
+                    playbook_dir: '/etc/ansible',
+                    inventory: '/usr/src/app/inventory.py',
+                    limit: this.target_ip,
+                }
+
                 switch(this.task_type) {
                     case "AdminServer":
-                        this.task_adminserver();
+                        post_args.playbook = 'adminserver.yml';
+                        post_args.extra_vars = [ this.task1 ];
                         break;
 
                     case "ManagedServer":
-                        this.task_managedserver();
+                        post_args.playbook = 'managedserver.yml';
+                        post_args.extra_vars = [ this.task2 ];
                         break;
 
                     case "Deploy":
-                        this.task_deploy();
+                        post_args.playbook = 'deploy.yml';
+                        post_args.extra_vars = [ this.task2 ];
                         break;
 
                     default:
                         console.log("Unknown task: " + this.task_type);
-                        break;
-                }
-            },
-
-            task_adminserver() {
-                // generate picc_user
-                this.task1.picc_user = this.task1.picc_user_prefix + this.task1.picc_org_code;
-
-                // generate post_args
-                let post_args = {
-                    playbook: 'adminserver.yml',
-                    playbook_dir: '/etc/ansible',
-                    inventory: '/usr/src/app/inventory.py',
-                    limit: this.target_ip,
-                    extra_vars: [ this.task1 ],
+                        return;
                 }
 
                 ajax.post(this.task_url, post_args).then( (response) => {
@@ -274,15 +269,6 @@
                     setInterval( this.$router.push('tasks'), 500);
                 })
             },
-
-            task_managedserver() {
-
-            },
-
-            task_deploy() {
-
-            },
-
         }
     }
 </script>
