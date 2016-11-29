@@ -82,7 +82,7 @@
             return {
                 createtype: 1,
                 vmdata: [],
-                ajax_url: '/inventory',
+                ajax_url: '/api/inventory',
                 submitdata: {
                     ip: null,
                     port: 22,

@@ -64,7 +64,7 @@
         data() {
             return {
                 vmdata: [],
-                ajax_url: '/inventory'
+                ajax_url: '/api/inventory'
             }
         },
         mounted() {

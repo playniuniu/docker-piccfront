@@ -53,7 +53,7 @@
         data() {
             return {
                 taskData: [],
-                task_url: '/tasks',
+                task_url: '/api/tasks',
             }
         },
         mounted() {

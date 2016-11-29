@@ -161,9 +161,9 @@
                 task_type: null, // for step
                 vmdata: [], // for ansible limit ip
                 select_ip_group: null, // for ansible limit ip
-                inventory_url: "/inventory",
-                task_url: "/newtask",
-                upload_url: "http://piccbackend:8002/upload",
+                inventory_url: "/api/inventory",
+                task_url: "/api/newtask",
+                upload_url: "/api/upload",
                 target_ip: null,
                 task1: {
                     picc_user: null,
