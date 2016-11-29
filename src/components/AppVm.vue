@@ -9,6 +9,17 @@
                 </el-button>
             </div>
         </header>
+        
+        <el-form label-position="left" label-width="90px" class="select-type">
+            <el-form-item label="虚拟化类型" >
+                <el-radio-group v-model="vmtype" >
+                    <el-radio label="全部"></el-radio>
+                    <el-radio label="CAS"></el-radio>
+                    <el-radio label="VMWare"></el-radio>
+                    <el-radio label="Citrix"></el-radio>
+                </el-radio-group>
+            </el-form-item>
+        </el-form>
 
         <el-table :data="tableData" border>
             <el-table-column prop="ip" label="IP 地址" width="180"></el-table-column>
@@ -46,6 +57,15 @@
         text-decoration: none;
         color: #fff;
     }
+    
+    .select-type {
+        padding: 5px 0;
+    }
+
+    .select-type label {
+        font-size: 14px;
+        color: #324057;
+    }
 </style>
 
 
@@ -53,6 +73,7 @@
     export default {
         data() {
             return {
+                vmtype: '全部',
                 tableData: [
                 {
                     ip: '10.10.17.240',

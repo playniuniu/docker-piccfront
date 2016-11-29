@@ -11,11 +11,12 @@ import Element from 'element-ui'
 
 // router here
 import App from './App.vue'
-import AppMachine from './components/AppMachine.vue'
+import AppVm from './components/AppVm.vue'
 import AppMap from './components/AppMap.vue'
 import AppNewtask from './components/AppNewtask.vue'
 import AppNewserver from './components/AppNewserver.vue'
 import AppTasks from './components/AppTasks.vue'
+import CommingSoon from './components/CommingSoon.vue'
 
 Vue.use(VueRouter)
 Vue.use(Element)
@@ -23,10 +24,13 @@ Vue.use(Element)
 // router settings
 const routes = [
     { path: '/', component: AppMap },
-    { path: '/machine', component: AppMachine },
+    { path: '/vm', component: AppVm },
+    { path: '/sources', component: CommingSoon },
     { path: '/newtask', component: AppNewtask },
     { path: '/newserver', component: AppNewserver },
-    { path: '/tasks', component: AppTasks }
+    { path: '/tasks', component: AppTasks },
+    { path: '/settinguser', component: CommingSoon },
+    { path: '/settingssh', component: CommingSoon }
 ]
 
 const router = new VueRouter({

@@ -2,8 +2,11 @@
     <el-menu class="sidebar-menu" @open="handleOpen" @close="handleClose">
         <el-submenu index="1">
             <template slot="title"><i class="el-icon-menu"></i>资源</template>
-            <router-link to="machine">
+            <router-link to="vm">
                 <el-menu-item index="1-1">虚机资源</el-menu-item>
+            </router-link>
+            <router-link to="sources">
+                <el-menu-item index="1-2">物理资源</el-menu-item>
             </router-link>
         </el-submenu>
         <el-submenu index="2">
@@ -22,9 +25,6 @@
             </router-link>
             <router-link to="settingssh">
                 <el-menu-item index="3-2">密钥管理</el-menu-item>
-            </router-link>
-            <router-link to="settingtask">
-                <el-menu-item index="3-3">任务管理</el-menu-item>
             </router-link>
         </el-submenu>
     </el-menu>
@@ -53,10 +53,8 @@
     export default {
         methods: {
             handleOpen(key, keyPath) {
-                console.log(key, keyPath);
             },
             handleClose(key, keyPath) {
-                console.log(key, keyPath);
             }
         }
     }
