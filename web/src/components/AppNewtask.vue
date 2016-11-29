@@ -163,7 +163,7 @@
                 select_ip_group: null, // for ansible limit ip
                 inventory_url: "/inventory",
                 task_url: "/newtask",
-                upload_url: "http://127.0.0.1:8002/upload",
+                upload_url: "http://piccbackend:8002/upload",
                 target_ip: null,
                 task1: {
                     picc_user: null,
