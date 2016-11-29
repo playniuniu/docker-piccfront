@@ -3,9 +3,9 @@
         <el-row class="task-step">
             <el-col :span="18">
                 <el-steps :space="250" :active="active">
-                    <el-step title="新建" icon="date"></el-step>
-                    <el-step title="设置" icon="setting"></el-step>
-                    <el-step title="部署" icon="caret-right"></el-step>
+                    <el-step title="新建任务" icon="star-off"></el-step>
+                    <el-step title="配置参数" icon="upload"></el-step>
+                    <el-step title="开始部署" icon="share"></el-step>
                 </el-steps>
             </el-col>
             <el-col :span="6">
