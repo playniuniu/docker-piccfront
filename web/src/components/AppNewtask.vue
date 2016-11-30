@@ -59,6 +59,12 @@
                     <el-form-item label="主控端口">
                         <el-input v-model="task1.admin_port" placeholder="7001"></el-input>
                     </el-form-item>
+                    <el-form-item label="用户名">
+                        <el-input v-model="task1.weblogic_user" placeholder="Weblogic 用户名"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码">
+                        <el-input v-model="task1.weblogic_passwd" placeholder="Weblogic 密码"></el-input>
+                    </el-form-item>
                 </div>
                 
                 <!-- step 2 -->
@@ -170,6 +176,8 @@
                     picc_op_name: null,
                     picc_org_code: null,
                     admin_port: null,
+                    weblogic_user: null,
+                    weblogic_passwd: null,
                 },
                 task2: {
                     picc_user: null,
