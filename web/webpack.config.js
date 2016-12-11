@@ -46,7 +46,16 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:4000/api',
+        secure: false,
+        pathRewrite: {
+          '^/api' : ''
+        }
+      }
+    },
   },
   devtool: '#eval-source-map'
 }
