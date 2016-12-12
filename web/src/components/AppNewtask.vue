@@ -30,6 +30,7 @@
                             <el-option label="安装程序" value="Deploy"></el-option>
                             <el-option label="更新安装" value="UpdateDeploy"></el-option>
                             <el-option label="回滚安装" value="Fallback"></el-option>
+                            <el-option label="清空缓存" value="ClearCache"></el-option>
                             <el-option label="配置数据源" value="DataSource"></el-option>
                             <el-option label="配置单点登录" value="ConfigSSL"></el-option>
                         </el-select>
@@ -83,8 +84,11 @@
                     <el-form-item label="主控 IP">
                         <el-input v-model="task2.admin_ip" placeholder="0.0.0.0"></el-input>
                     </el-form-item>
-                     <el-form-item label="主控端口">
+                    <el-form-item label="主控端口">
                         <el-input v-model="task2.admin_port" placeholder="7001"></el-input>
+                    </el-form-item>
+                    <el-form-item label="受管端口">
+                        <el-input v-model="task2.managed_port" placeholder="7002"></el-input>
                     </el-form-item>
                     <el-form-item label="用户名">
                         <el-input v-model="task2.weblogic_user" placeholder="Weblogic 用户名"></el-input>
@@ -201,6 +205,22 @@
                     </el-form-item>
                 </div>
 
+                <!-- step 2 -->
+                <div v-if="active === 2 && task_type === 'ClearCache'">
+                    <el-form-item label="业务省份">
+                        <el-input v-model="task6.picc_user" placeholder="fj3500"></el-input>
+                    </el-form-item>
+                    <el-form-item label="业务名称">
+                        <el-input v-model="task6.picc_op_name" placeholder="car3g"></el-input>
+                    </el-form-item>
+                    <el-form-item label="业务编码">
+                        <el-input v-model="task6.picc_org_code" placeholder="3500"></el-input>
+                    </el-form-item>
+                    <el-form-item label="受管名称">
+                        <el-input v-model="task6.managed_name" placeholder="ManagedServer7002"></el-input>
+                    </el-form-item>
+                </div>
+
                 <!-- step 3 -->
                 <div v-if="active === 3">        
                     <el-button type="success" size="large" @click="runTask">立即部署</el-button>
@@ -262,6 +282,7 @@
                     picc_org_code: null,
                     admin_ip: null,
                     admin_port: null,
+                    managed_port: null,
                     weblogic_user: null,
                     weblogic_passwd: null,
                 },
@@ -297,6 +318,12 @@
                     deploy_target: null,
                     deploy_name: null,
                     deploy_type: 'deploy'
+                },
+                task6: {
+                    picc_user: null,
+                    picc_op_name: null,
+                    picc_org_code: null,
+                    managed_name: null,
                 },
             }
         },
@@ -336,7 +363,7 @@
                 this.target_ip = "";
 
                 // update select_group for select ip
-                if (this.task_type === "ManagedServer") {
+                if (this.task_type === "ManagedServer" || this.task_type === "ClearCache") {
                     this.select_ip_group = "ManagedServer";
                 }
                 else {
@@ -405,6 +432,11 @@
                     case "Fallback":
                         post_args.playbook = 'fallback.yml';
                         post_args.extra_vars = [ this.task5 ];
+                        break;
+
+                    case "ClearCache":
+                        post_args.playbook = 'clearcache.yml';
+                        post_args.extra_vars = [ this.task6 ];
                         break;
 
                     default:
