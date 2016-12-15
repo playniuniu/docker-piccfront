@@ -1,47 +1,49 @@
 <template>
     <div class="main-layouts">
-        <header class="app-menu">
-            <slot name="menu"></slot>
-        </header>
-
-        <aside class="app-sidebar">
+        <slot name="menu"></slot>
+        <div class="main-content">
             <slot name="sidebar"></slot>
-        </aside>
-
-        <section class="app-container">
             <slot name="content"></slot>
-        </section>
+        </div>
     </div>
 </template>
 
 <style>
-    .main-layouts {
+    *  {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
         height: 100%;
     }
 
-    .app-menu {
-        position:fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 80px;
-        padding: 0 50px;
-        background-color: #20A0FF;
-        transition: all 0.5s ease;
-        z-index: 10;
+    .main-layouts {
+        font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
 
-    .app-sidebar {
-        position:fixed;
-        width: 260px; 
-        top: 80px;
-        bottom: 0;
+    .main-content {
+        display: flex;
+        flex: 1;
     }
 
-    .app-container {
+    .content-container {
+        flex: 1;
         background: #F9FAFC;
-        padding-left: 260px;
-        padding-top: 80px;
-        min-height: calc(100% - 80px);
+        padding: 10px 50px 0 40px;
+    }
+
+    .content-container .title {
+        display: inline-block;
+        height: 56px;
+        line-height: 56px;
+        font-size: 22px;
+        padding: 0;
+        margin: 0 0 10px;
     }
 </style>

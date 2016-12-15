@@ -1,8 +1,8 @@
 <template>
-    <header>
-        <h1 class="header-title">
+    <header class="app-menu">
+        <div class="header-title">
             <router-link to="/">PICC 灾备管理</route-link>
-        </h1>
+        </div>
         <div class="header-nav">
             <el-button size="small" class="btn-login">
                 <i class="fa fa-user"></i>
@@ -14,8 +14,16 @@
 
 <style>
 
+    .app-menu {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 50px;
+        height: 80px;
+        background-color: #20A0FF;
+        transition: all 0.5s ease;
+    }
+
     .header-title {
-        display: inline-block;
         font-size: 26px;
         font-weight: 200;
         line-height: 80px;
@@ -28,12 +36,9 @@
     }
 
     .header-nav {
-        float: right;
         font-size: 16px;
         color: #fff;
         line-height: 80px;
-        margin: 0;
-        padding: 0;
     }
 
     .btn-login {

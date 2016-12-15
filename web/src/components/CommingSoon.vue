@@ -5,10 +5,17 @@
 </template>
 
 <style>
+    .img-container {
+        display: flex;
+        flex: 1;
+        background: #F9FAFC;
+        justify-content: center;
+        align-items: center;
+    }
+
     .img-container img {
         width: 750px;
         height: auto;
-        margine: 0 auto;
     }
 </style>
 

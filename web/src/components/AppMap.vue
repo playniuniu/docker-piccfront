@@ -3,12 +3,13 @@
         <h1 class="title">PICC 数据中心概览</h1>
         <baidu-echarts :mapdata="mapdata"></baidu-echarts>
     </section>
-    
 </template>
 
 <style>
     .chart-container {
+        flex: 1;
         padding: 10px 0 40px 40px;
+        background: #F9FAFC;
     }
 
     .chart-container .title {
